@@ -1,8 +1,25 @@
-var http = require('http');
-var fs = require('fs');
-var index = fs.readFileSync('index.html');
+const http = require('http');
+const fs = require('fs');
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb://localhost:27017/";
 
-http.createServer(function (req, res) {
-	  res.writeHead(200, {'Content-Type': 'text/html'});
-	  res.end(index);
-}).listen(8000);
+const handler = require("./srv_files/handler.js").handle;
+
+const Analyse = {
+    connnected: 0,
+    total: 0
+};
+
+const server = http.createServer(handler).listen(8000, "localhost");
+
+const io = require('socket.io')(server);
+
+io.on('connection', function (socket) {
+	Analyse.connnected++;
+	Analyse.total++;
+	socket.on("disconnect", ()=>{
+		Analyse.connnected--;
+	});
+});
+
+console.log("online at : http://localhost:8000");
