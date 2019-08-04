@@ -1,19 +1,9 @@
+const SQUARE_BY_LINE = 10;
 const canvas = document.getElementById("canvas");
 
 console.log(canvas)
-canvas.width = innerWidth;
-canvas.height = innerHeight;
 const ctx = canvas.getContext("2d");
 const rc = rough.canvas(document.getElementById('canvas'));
-
-let frames = 0;
-
-let obj = {
-    x: 50,
-    y: 50,
-    w: 80,
-    color: "red"
-};
 
 const touches = {
     up: false,
@@ -22,26 +12,31 @@ const touches = {
     right: false
 };
 
-const pow = 4;
-const touches_val = {
-    up: ["y", -pow],
-    down: ["y", pow],
-    left: ["x", -pow],
-    right: ["x", pow]
-};
+function line(x1, y1, x2, y2, ctx) {
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    ctx.moveTo(0, 0);
+}
 
 let draw = setInterval(() => {
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
-    const roughness = frames === 1 ? 1 : 1;
-    rc.circle(obj.x, obj.y, obj.w, { fill: obj.color, roughness: roughness });
-    frames++;
-    frames %= 3;
-}, 25);
+    const SHIFT = (innerHeight > innerWidth) ? 5 : 100;
+    const MAX_REF = (innerHeight > innerWidth) ? innerWidth - SHIFT : innerHeight - SHIFT;
+    const SQUARE_WIDTH = (MAX_REF - SHIFT) / SQUARE_BY_LINE;
+    canvas.width = SQUARE_WIDTH * 10;
+    canvas.height = canvas.width;
+    canvas.style.left = (innerWidth / 2) - (canvas.width / 2) + "px";
+    canvas.style.top = (innerHeight / 2) - (canvas.height / 2) + "px";
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < SQUARE_BY_LINE + 1; i++) {
+        line(i * SQUARE_WIDTH, 0, i * SQUARE_WIDTH, 10 * SQUARE_WIDTH, ctx);
+        line(0, i * SQUARE_WIDTH, 10 * SQUARE_WIDTH, i * SQUARE_WIDTH, ctx);
+    }
+}, 50);
 
 let update = setInterval(() => {
-    for (let key in touches) {
-        if (touches[key]) {
-            obj[touches_val[key][0]] += touches_val[key][1];
-        }
-    }
+    
 }, 10);
