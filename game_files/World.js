@@ -62,11 +62,16 @@ class World {
                             color = "red";
                             stackSize *= -1;
                         }
-                        this.rc.circle(i * this.SQUARE_WIDTH + this.SQUARE_WIDTH / 2, j * this.SQUARE_WIDTH + this.SQUARE_WIDTH / 2, this.SQUARE_WIDTH / 2, {
+                        this.rc.circle(i * this.SQUARE_WIDTH + this.SQUARE_WIDTH / 2, j * this.SQUARE_WIDTH + this.SQUARE_WIDTH / 2, this.SQUARE_WIDTH / 1.4, {
                             strokeWidth: 1,
                             stroke: color,
                             roughness: 0 + (stackSize / 10) * 3
                         });
+                        let fontSize = this.SQUARE_WIDTH / 2;
+                        this.ctx.font = fontSize + "px Courier New";
+                        this.ctx.fillStyle = color;
+                        this.ctx.fillText("" + stackSize, (i * this.SQUARE_WIDTH + this.SQUARE_WIDTH / 2) - (fontSize / 3),
+                        (j * this.SQUARE_WIDTH + this.SQUARE_WIDTH / 2) + (fontSize / 3));
                     }
                 }
             }

@@ -47,7 +47,11 @@ function add(socket, io) {
         let tryReco = roomsGet(socket.psd);
         if (tryReco) {
             socket.join(rooms[tryReco].broadcast);
+            let playerID = (rooms[tryReco].p1 === socket.psd) ? 0 : 1;
+            socket.actionsCount = rooms[tryReco].sockets[playerID].actionsCount;
+            rooms[tryReco].sockets[playerID] = socket;
             socket.emit("reco", rooms[tryReco].p1, rooms[tryReco].p2, rooms[tryReco].map);
+            socket.emit("turn", socket.actionsCount);
         } else {
             waiters.push(socket);
             if (waiters.length % 2 === 0) {
