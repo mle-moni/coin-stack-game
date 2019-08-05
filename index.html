@@ -5,14 +5,41 @@
     <meta charset="utf-8">
     <title>Test de jeu</title>
     <script src="game_files/lib/rough.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="game_files/style.css">
 </head>
 <body>
+    <label class="switch">
+        <input id="toggleMode" type="checkbox" checked>
+        <span class="slider round"></span>
+    </label>
+    <h3 style="display: inline-block; position: relative; top: 10px;" id="modeDisplayer">ADD MODE</h3>
     <canvas id="canvas">
         Si vous voyez ce message, veuillez mettre a jour votre navigateur ou utiliser un autre.
     </canvas>
-    <script src="game_files/init.js"></script>
+    <script src="game_files/World.js"></script>
+    <script src="game_files/game_generator.js"></script>
     <script src="game_files/keyboard.js"></script>
+
+    <script>
+        genScope();
+        let countChanges = 0;
+        let G_MODE = "add";
+        const toggleMode = document.getElementById("toggleMode");
+        toggleMode.onchange = e=> {
+            countChanges++;
+            countChanges %= 2;
+            let txt;
+            if (countChanges == 1) {
+                G_MODE = "split";
+                txt = "SPLIT MODE";
+            } else {
+                G_MODE = "add";
+                txt = "ADD MODE";
+            }
+            document.getElementById("modeDisplayer").innerHTML = txt;
+        }
+    </script>
 </body>
 
 </html>
