@@ -31,23 +31,6 @@ function genScope() {
 		game.pseudo = pseudo;
         game.socket = ioSocket;
         
-        game.canvas.onclick = (e) => {
-            const click = {
-                x: Math.floor(e.layerX / game.SQUARE_WIDTH),
-                y: Math.floor(e.layerY / game.SQUARE_WIDTH)
-            };
-            switch (G_MODE) {
-                case "add":
-                    game.socket.emit("turn", G_MODE, click);
-                    break;
-                case "split":
-                    game.socket.emit("turn", G_MODE, click);
-                    break;
-                default:
-                    game.socket.emit("turn", "add", click);
-                    break;
-            }
-        }
 		return game;
     }
     
@@ -79,7 +62,12 @@ function genScope() {
     });
 
     innerSocket.on("turn", (actionsCount) => {
-        console.log("turn "+ actionsCount);
+        document.getElementById("actionDisplayer").innerHTML = "Actions restantes : " + actionsCount;
+    });
+
+    innerSocket.on("end_game", txt => {
+        alert(txt);
+        location.reload();
     });
 
 	innerSocket.on("logAndComeBack", ()=>{

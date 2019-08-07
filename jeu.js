@@ -68,9 +68,9 @@ MongoClient.connect(url, {
 				queueSystem.add(socket, io);
 		});
 
-		socket.on("turn", (mode, pos) => {
+		socket.on("turn", (mode, pos, pos2) => {
 			if (socket.hasOwnProperty("psd"))
-				gameCore.turn(socket, io, mode, pos);
+				gameCore.turn(socket, io, mode, pos, pos2);
 		});
 	
 		socket.on("disconnect", ()=>{

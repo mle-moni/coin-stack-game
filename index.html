@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Test de jeu</title>
+    <script>let G_MODE = "add";</script>
     <script src="game_files/lib/rough.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="game_files/style.css">
@@ -14,6 +15,7 @@
         <span class="slider round"></span>
     </label>
     <h3 style="display: inline-block; position: relative; top: 10px;" id="modeDisplayer">ADD MODE</h3>
+    <h3 style="position: absolute; top: 17px; right: 5px;" id="actionDisplayer">Actions restantes : 0</h3>
     <canvas id="canvas">
         Si vous voyez ce message, veuillez mettre a jour votre navigateur ou utiliser un autre.
     </canvas>
@@ -24,7 +26,6 @@
     <script>
         genScope();
         let countChanges = 0;
-        let G_MODE = "add";
         const toggleMode = document.getElementById("toggleMode");
         toggleMode.onchange = e=> {
             countChanges++;

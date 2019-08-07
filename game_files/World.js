@@ -18,6 +18,8 @@ function line(x1, y1, x2, y2, ctx) {
 
 class World {
     constructor (n) {
+        this.socket = false;
+        this.stackOrigin = {};
         this.canvas = document.getElementById("canvas");
         this.SHIFT = (innerHeight > innerWidth) ? 5 : 100;
         this.MAX_REF = (innerHeight > innerWidth) ? innerWidth - this.SHIFT : innerHeight - this.SHIFT;
@@ -34,6 +36,19 @@ class World {
             }
         }
         this.arr = temp;
+        this.canvas.onclick = (e) => {
+            const click = {
+                x: Math.floor(e.layerX / this.SQUARE_WIDTH),
+                y: Math.floor(e.layerY / this.SQUARE_WIDTH)
+            };
+            this.tryToSend(click);
+        }
+        this.canvas.onmousedown = (e) => {
+            this.stackOrigin = {
+                x: Math.floor(e.layerX / this.SQUARE_WIDTH),
+                y: Math.floor(e.layerY / this.SQUARE_WIDTH)
+            };
+        }
         this.draw();
     }
     draw() {
@@ -77,5 +92,18 @@ class World {
             }
             this.ennemy = [];
         }, 50);
+    }
+    tryToSend(obj) {
+        switch (G_MODE) {
+            case "add":
+                this.socket.emit("turn", G_MODE, obj);
+                break;
+            case "split":
+                this.socket.emit("turn", G_MODE, this.stackOrigin, obj);
+                break;
+            default:
+                this.socket.emit("turn", "add", obj);
+                break;
+        }
     }
 }
