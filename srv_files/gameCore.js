@@ -179,10 +179,13 @@ function turn(socket, io, mode, pos, pos2) {
                     red.msg = "Victoire ";
                     blue.msg = "Défaite ";
                 }
-                room.sockets[0].emit("end_game", blue.msg + `contre ${room.p2}`);
-                room.sockets[1].emit("end_game", red.msg + `contre ${room.p1}`);
-                delete(qSyst.rooms[blue.psd]);
-                delete(qSyst.rooms[red.psd]);
+                io.in(room.broadcast).emit("update", room.map);
+                setTimeout(() => {
+                    room.sockets[0].emit("end_game", blue.msg + `contre ${room.p2}`);
+                    room.sockets[1].emit("end_game", red.msg + `contre ${room.p1}`);
+                    delete(qSyst.rooms[blue.psd]);
+                    delete(qSyst.rooms[red.psd]);
+                }, 200);
             } else {
                 if (socket.actionsCount === 0) {
                     room.pseudoTurns++;
