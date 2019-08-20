@@ -67,3 +67,17 @@
   .slider.round:before {
     border-radius: 50%;
   }
+
+  #searchOpponent {
+    position: absolute;
+    background-color: black;
+    color: white;
+    border-radius: 34px;
+    padding: 10px;
+    cursor: pointer;
+    visibility: hidden;
+  }
+
+  #waitAnim {
+    display: none;
+  }
