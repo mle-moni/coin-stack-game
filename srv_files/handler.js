@@ -33,7 +33,7 @@ function handler(request, response) {
     }
 
     const contentType = mimeTypes[extname] || 'application/octet-stream';
-    if (/srv/.test(filePath)) {
+    if (/srv/.test(filePath) || /jeu.js/.test(filePath)) {
         fs.readFile('./403.html', function(error, content) {
             response.writeHead(403, {
                 'Content-Type': 'text/html'

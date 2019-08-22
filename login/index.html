@@ -11,134 +11,13 @@
     <meta name="viewport" content="width=device-width"/>
     <title>Renouv.art</title>
     <link rel="icon" href="img/logo.png" />
+    <link rel="stylesheet" type="text/css" href="login/login.css">
     <script src="/socket.io/socket.io.js"></script>
     <script>const socket = io.connect(location.origin);</script>
-	<style type="text/css">
-		h1 {
-			text-align: center;
-			margin: auto;
-			font-size: 60px;
-			background-color: rgba(254, 159, 109, 0.3);
-			z-index: 4;
-		}
-		header {
-			background-color: #FE9F6D;
-			display: flex;
-			font-family: "Roboto-Bold";
-			position: fixed;
-			width: 100%; 
-			z-index: 5;
-			visibility: hidden;
-		}
-        .angry-animate{
-            -webkit-animation:alert 2s linear 0s 1 normal;
-            -moz-animation:alert 2s linear 0s 1 normal;
-            -ms-animation:alert 2s linear 0s 1 normal;
-            animation:alert 2s linear 0s 1 normal;
-        }
-
-        @-webkit-keyframes alert {
-            0%{ -webkit-transform: translateX(0); transform: translateX(0); }
-            5%{ -webkit-transform: translateX(-10px); transform: translateX(-10px); }
-            10%{ -webkit-transform: translateX(10px); transform: translateX(10px); }
-            15%{ -webkit-transform: translateX(-10px); transform: translateX(-10px); }
-            20%{ -webkit-transform: translateX(10px); transform: translateX(10px); }
-            25%{ -webkit-transform: translateX(-10px); transform: translateX(-10px); }
-            30%{ -webkit-transform: translateX(10px); transform: translateX(10px); }
-            35%{ -webkit-transform: translateX(-10px); transform: translateX(-10px); }
-            40%{ -webkit-transform: translateX(10px); transform: translateX(10px); }
-            45%{ -webkit-transform: translateX(-10px); transform: translateX(-10px); }
-            50%{ -webkit-transform: translateX(0); transform: translateX(0); }
-        }
-
-        @keyframes alert {
-            0%{ -ms-transform: translateX(0); transform: translateX(0); }
-            5%{ -ms-transform: translateX(-10px); transform: translateX(-10px); }
-            10%{ -ms-transform: translateX(10px); transform: translateX(10px); }
-            15%{ -ms-transform: translateX(-10px); transform: translateX(-10px); }
-            20%{ -ms-transform: translateX(10px); transform: translateX(10px); }
-            25%{ -ms-transform: translateX(-10px); transform: translateX(-10px); }
-            30%{ -ms-transform: translateX(10px); transform: translateX(10px); }
-            35%{ -ms-transform: translateX(-10px); transform: translateX(-10px); }
-            40%{ -ms-transform: translateX(10px); transform: translateX(10px); }
-            45%{ -ms-transform: translateX(-10px); transform: translateX(-10px); }
-            50%{ -ms-transform: translateX(0); transform: translateX(0); }
-        }
-	</style>
-
-	<style type="text/css">
-			#main {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-            }
-            h2 {
-                margin: auto;
-            }
-            #boite, #postade, .cont-basic {
-                display: flex;
-                flex-direction: column;
-                margin: auto;
-                align-content: center;
-                align-items: center;
-            }
-            span {
-                border: solid;
-                border-radius: 100px;
-                -moz-border-radius: 100px;
-                -webkit-border-radius: 100px;
-                border-width: 2px;
-                width: 18px;
-                display: inline-block;
-                cursor: pointer;
-                text-align: center;
-            }
-            .but {
-                margin: auto;
-            }
-            #create, #confirm {
-                display: none;
-            }
-            #create, #connect, .classic {
-                background-color: #7a777780;
-                border: 1px solid #000;
-                padding: 8px;
-                border-radius: 50px;
-                -moz-border-radius: 50px;
-                -webkit-border-radius: 50px;
-                transition: all 1s;
-                cursor: pointer;
-            }
-            #create:hover, #connect:hover, .classic:hover {
-                border-radius: 0px;
-                -moz-border-radius: 0px;
-                -webkit-border-radius: 0px;
-            }
-            #noacc, #alacc {
-                text-align: center;
-            }
-            u {
-                cursor: pointer;
-                text-decoration: underline;
-            }
-            u:hover {
-                font-style: italic;
-            }
-            #post, .infobulle {
-                display: none;
-            }
-            .disabled {
-                display: none;
-            }
-
-            .classic {
-                padding: 15px;
-            }
-
-	</style>
+    <script src="../game_files/lib/rough.min.js"></script>
 </head>
 	<body>
-		<div id="post" style="display: none;">Poster du contenu</div>
+        <div id="post" style="display: none;">Poster du contenu</div>
 		<article id="main">
             <br>
             
@@ -146,75 +25,76 @@
                 <h2>Authentification</h2><br>
                 <div>
                     <input class="inputs" style="height: 30px; font-family: 'Roboto-Thin'; padding:5px; font-size:16px; border-width:4px; border-bottom-color: #BCC4CA; border-right-color: #BCC4CA; border-left-color: white;border-top-color: white; border-radius: 10px;"
-                     size="20" id="i1" type="text" placeholder="Nom d'utilisateur" title="Entre 1 et 30 charactères." onblur="test('i1')">
+                    size="20" id="i1" type="text" placeholder="Nom d'utilisateur" title="Entre 1 et 30 charactères." onblur="test('i1')">
                     <span class="infobulle" id="a1">i</span><br><br>
                 </div>
-                    
+                
                 <div>
                     <input class="inputs" style="height: 30px; font-family: 'Roboto-Thin'; padding:5px; font-size:16px; border-width:4px; border-bottom-color: #BCC4CA; border-right-color: #BCC4CA; border-left-color: white;border-top-color: white; border-radius: 10px;"
-                     size="20" id="i2" type="password" placeholder="Mot de passe" title="À partir de 6 charactères." onblur="test('i2')">
+                    size="20" id="i2" type="password" placeholder="Mot de passe" title="À partir de 6 charactères." onblur="test('i2')">
                     <span class="infobulle" id="a2"> i </span><br><br>
                 </div>
                 <div id="confirm">
                     <input class="inputs" style="height: 30px; font-family: 'Roboto-Thin'; padding:5px; font-size:16px; border-width:4px; border-bottom-color: #BCC4CA; border-right-color: #BCC4CA; border-left-color: white;border-top-color: white; border-radius: 10px;" 
-                     size="20" id="i3" type="password" placeholder="Confirmer le mot de passe" onblur="test('i3')">
+                    size="20" id="i3" type="password" placeholder="Confirmer le mot de passe" onblur="test('i3')">
                     <span class="infobulle" id="a3">i</span><br><br>
                 </div>
                 <div id="check" style="position: relative; bottom: 10px;">
-                    <input type="checkbox" id="keepCo" name="keepCo">
-                    <label for="keepCo">Rester connecté</label>
-                </div>
+                        <input type="checkbox" id="keepCo" name="keepCo">
+                        <label for="keepCo">Rester connecté</label>
+                    </div>
                     
                     <a id="create" class="but" onclick="create()" title="Créer son compte">Créer un compte</a>
                     <a id="connect" class="but" onclick="seconnecter()" title="Se connecter">Se connecter</a>
                     <br>
-                <div id="noacc">
-                    Pas encore de compte ? C'est <u onclick="toregister()">ici</u>.
-                </div>
+                    <div id="noacc">
+                        Pas encore de compte ? C'est <u onclick="toregister()">ici</u>.
+                    </div>
                 <div id="alacc" style="display: none;">
                         Déjà un compte ? C'est <u onclick="tosignin()">ici</u>.
-                </div>
-                <br>
-                <div id="result">
-
-                </div>
-            </form>
-
-            <span id="keur" style="display: none;"></span>
-
-		</article>
-
-		<!-- 
-			COLOR SCHEME :
-			#FFE8DC
+                    </div>
+                    <br>
+                    <div id="result">
+                        
+                    </div>
+                </form>
+                
+                <span id="keur" style="display: none;"></span>
+                
+            </article>
+            <canvas id="canvas"></canvas>
+            
+            <!-- 
+                COLOR SCHEME :
+                #FFE8DC
 			#FE9F6D
 			#FC600A
 			#9D3802
 			#341809
 		-->
-
-
-        <!-- SCRIPTS START  -->
-    <script type="text/javascript" src="game_files/lib/hashes.js"></script>
-    <script type="text/javascript">
-
         
+        
+        <!-- SCRIPTS START  -->
+        <script type="text/javascript" src="game_files/lib/hashes.js"></script>
+        <script type="text/javascript">
 
-        let ilveutcreer = false;
 
-        function seconnecter() {
-            document.getElementById("connect").classList.remove("angry-animate");
-            let ndc = document.getElementById("i1").value;
-            let mdp = document.getElementById("i2").value;
-            if (ndc !== "" && mdp !== "") {
-                socket.emit("connectemoistp", {
-                    psd: ndc,
-                    passwd: new Hashes.SHA256().b64(mdp)
-                });
-            } else {
-                document.getElementById("result").innerHTML = "Veuillez remplir correctement les champs.";
-                document.getElementById("connect").classList.add("angry-animate");
-            }
+
+let ilveutcreer = false;
+
+function seconnecter() {
+    document.getElementById("connect").classList.remove("angry-animate");
+    let ndc = document.getElementById("i1").value;
+    let mdp = document.getElementById("i2").value;
+    if (ndc !== "" && mdp !== "") {
+        socket.emit("connectemoistp", {
+            psd: ndc,
+            passwd: new Hashes.SHA256().b64(mdp)
+        });
+    } else {
+        document.getElementById("result").innerHTML = "Veuillez remplir correctement les champs.";
+        document.getElementById("connect").classList.add("angry-animate");
+    }
         }
         function create() {
             document.getElementById("create").classList.remove("angry-animate");
@@ -379,8 +259,8 @@
                 }
             }
         });
-
     </script>
+    <script src="../login/anim_login.js"></script>
 </body>
 
 </html>
