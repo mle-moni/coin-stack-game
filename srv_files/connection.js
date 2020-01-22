@@ -75,10 +75,10 @@ function createAccount(obj, socket, dbo) {
                 } else {
                     socket.emit("fail", "create");
                     socket.emit("log", [{
-                    id: "result",
-                    msg: "Ce nom d'utilisateur est déjà pris :c"
-                }] );
-            }
+                        id: "result",
+                        msg: "Ce nom d'utilisateur est déjà pris :c"
+                    }]);
+                }
             });
         }
     }
