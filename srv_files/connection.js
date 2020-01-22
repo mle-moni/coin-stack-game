@@ -59,9 +59,8 @@ function createAccount(obj, socket, dbo) {
                     };
                     const accObj = {
                         psd: userName,
-                        stuff: "",
                         totalLikes: 0,
-                        moneyLikes: 0
+                        convs_id: []
                     };
                     dbo.collection("connection").insertOne(myobj, function(err, res) {
                         if (err) throw err;
