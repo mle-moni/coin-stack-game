@@ -32,9 +32,7 @@ const server = http.createServer(handler).listen(8000, "localhost");
 
 const io = require('socket.io')(server);
 
-MongoClient.connect(url, {
-    useNewUrlParser: true,
-}, function(err, db) {
+MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
     if (err) throw err;
     let dbo = db.db("art");
 
