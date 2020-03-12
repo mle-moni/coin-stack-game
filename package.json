@@ -1,0 +1,22 @@
+{
+  "name": "coin-war",
+  "version": "1.0.0",
+  "description": "A small 1v1 game in the browser",
+  "main": "jeu.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "web@renouv.art:coin_war"
+  },
+  "author": "LE MONIES DE SAGAZAN Mayeul",
+  "license": "Apache",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "mongodb": "^3.5.5",
+    "path": "^0.12.7",
+    "socket.io": "^2.3.0"
+  }
+}

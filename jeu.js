@@ -1,7 +1,23 @@
+/*
+Copyright 2020 LE MONIES DE SAGAZAN Mayeul
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
 const http = require('http');
 const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://art_admin:bonjour_BONJOUR_NANMAISREPONDFDP@localhost:27017/?authSource=art";
+const url = require("../global/db_url").art;
 const handler = require("./srv_files/handler").handle;
 const connection = require("../global/connection");
 const queueSystem = require("./srv_files/queueSystem");
